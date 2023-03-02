@@ -122,7 +122,7 @@ public class LEDScanner {
 		
 		else {
 		
-			if(serialNumber.charAt(0) == 'm') {
+			if(serialNumber.charAt(0) == 'M' || serialNumber.charAt(0) == 'm') {
 				auditList = mc7Audit;
 			}
 			else if (serialNumber.charAt(0) == 'D') {
