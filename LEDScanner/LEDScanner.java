@@ -47,10 +47,10 @@ public class LEDScanner {
 		setAuditLists();
 		setBingAudio();
 		setBongAudio();
-//		System.out.println(mc7Audit);
-//		System.out.println(dm2Audit);
-//		System.out.println(bo2Audit);
-//		System.out.println(bp2Audit);
+		System.out.println(mc7Audit);
+		System.out.println(dm2Audit);
+		System.out.println(bo2Audit);
+		System.out.println(bp2Audit);
 		//System.out.println(auditSearch("BP280M107596"));
 		
 
@@ -131,6 +131,7 @@ public class LEDScanner {
 				auditList = mc7Audit;
 			}
 			else if (serialNumber.charAt(0) == 'D') {
+				System.out.println("in D");
 				auditList = dm2Audit;
 			}
 			else if (serialNumber.charAt(0) == 'B') {
