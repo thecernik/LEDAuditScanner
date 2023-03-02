@@ -1,7 +1,10 @@
 // Java program to play an Audio
 // file using Clip Object
 import java.io.File;
-import java.io.IOException;  
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -24,8 +27,9 @@ public class AudioPlayer {
         IOException, LineUnavailableException 
     {
         // create AudioInputStream object
-        audioInputStream = 
-                AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+    	URL url = LEDScanner.class.getResource(filePath);
+    	audioInputStream = 
+                AudioSystem.getAudioInputStream(url);
           
         // create clip reference
         clip = AudioSystem.getClip();
@@ -42,8 +46,9 @@ public class AudioPlayer {
     	
     		setFilePath(filePath);
             // create AudioInputStream object
-            audioInputStream = 
-                    AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+    		URL url = LEDScanner.class.getResource(filePath);
+        	audioInputStream = 
+                    AudioSystem.getAudioInputStream(url);
               
             // create clip reference
             clip = AudioSystem.getClip();
@@ -134,10 +139,11 @@ public class AudioPlayer {
     public void resetAudioStream() throws UnsupportedAudioFileException, IOException,
                                             LineUnavailableException 
     {
-        audioInputStream = AudioSystem.getAudioInputStream(
-        new File(getFilePath()).getAbsoluteFile());
+    	URL url = LEDScanner.class.getResource(getFilePath());
+    	audioInputStream = 
+                AudioSystem.getAudioInputStream(url);
         clip.open(audioInputStream);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        //clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
 	public String getFilePath() {

@@ -1,6 +1,7 @@
 import java.io.File; //Imports the File Classes
 import java.io.FileNotFoundException;
 import java.io.IOException; //Imports the IOException class to handle errors
+import java.io.InputStream;
 import java.util.Scanner; //Imports the Scanner class to read files
 
 import javax.sound.sampled.LineUnavailableException;
@@ -59,7 +60,6 @@ public class LEDScanner {
 			
 			System.out.println("Please enter serial number or 'quit': ");
 			String userIn = input.next();
-			System.out.println(userIn);
 			if(userIn.equalsIgnoreCase("End") || userIn.equalsIgnoreCase("quit")) {
 				searchActive = false;
 			}else {
@@ -78,29 +78,24 @@ public class LEDScanner {
 
 	}
 
-	public static ArrayList<String> readFile(String filename) {
+	public static ArrayList<String> readFile(String filename) throws IOException {
 
 		ArrayList<String> toAudit = new ArrayList<String>();
-		try {
-			File auditFile = new File(filename);
-			Scanner fileReader = new Scanner(auditFile);
-			fileReader.useDelimiter(",");
-			while (fileReader.hasNextLine()) {
-				toAudit.add(fileReader.nextLine());
-			}
-			fileReader.close();
-			System.out.println(filename + " successfully parsed.");
-			success++;
-			return toAudit;
-		} catch (FileNotFoundException e) {
-			System.out.println("An error occured reading the file.");
-			e.printStackTrace();
-			return null;
+		//File auditFile = new File(filename);
+		InputStream auditFile = LEDScanner.class.getResourceAsStream(filename);
+		Scanner fileReader = new Scanner(auditFile);
+		fileReader.useDelimiter(",");
+		while (fileReader.hasNextLine()) {
+			toAudit.add(fileReader.nextLine());
 		}
+		fileReader.close();
+		System.out.println(filename + " successfully parsed.");
+		success++;
+		return toAudit;
 
 	}
 
-	public static void setAuditLists() throws InterruptedException {
+	public static void setAuditLists() throws InterruptedException, IOException {
 		System.out.println("Reading CSV files...");
 		Thread.sleep(250);
 		mc7Audit = readFile(mc7List);
